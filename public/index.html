@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title> teste </title>	
+
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<script src="js/jquery-3.1.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+
+	<script src="js/angular.min.js"></script>
+
+</head>
+<body ng-controller="myCtrl">
+
+
+	<div class="container">
+
+		<div class="row">
+		  <div class="col-md-6">
+		  		<h1>Form dinâmico</h1>
+		  	
+				<form name="myForm" novalidate>
+
+				  <dynamic-field field-data="fieldData" ng-repeat="fieldData in fields"></dynamic-field>
+
+				  <button type="submit" class="btn btn-default" ng-disabled="myForm.$invalid" >
+				  		Submit
+				  </button>
+
+				</form>	
+				
+
+		  </div>
+		  <div class="col-md-6">
+		  	
+		  	<pre>		  		
+		  		{{fields | json }}
+		  		
+		  	</pre>
+		  </div>		
+		</div>
+	  
+	</div>
+
+
+
+<script>
+
+	var app = angular.module("myApp", []);
+
+	app.controller("myCtrl", function($scope, $timeout) {
+		
+
+			$scope.fields = [
+				  {
+				    type: 'text',
+				    data: 'Lorem ipsum dolor sit amet ',
+				    label: 'Name',
+				    name: 'texto1',
+				    required: true
+				  },
+				  {
+				    type: 'email',
+				    data: 'teste@teste.com',
+				    name: 'texto2',
+				    label: 'E-mail ',
+				    required: false
+				  },
+				  {
+				    type: 'text',
+				    data: 'Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet',
+				    name: 'texto3',
+				    label: 'Name',
+				    required: false
+				  },
+				  {
+				    type: 'email',
+				    data: '',
+				    name: 'texto4',
+				    label: 'E-mail ',
+				    required: true
+				  },
+				  {
+				    type: 'select',
+				    data: '',
+				    name: 'texto5',
+				    label: 'Animal',
+				    options: ['Cat','Dog','Fish'],
+				    required: false
+				  }
+				  ,
+				  {
+				    type: 'select',
+				    data: '',
+				    name: 'texto6',
+				    label: 'Animal',
+				    options: ['Cat','Dog','Fish'],
+				    required: true
+				  },
+				  {
+				    type: 'textarea',
+				    data: '',
+				    name: 'texto5',
+				    label: 'Digite o texto',
+				    required: true
+				  }
+			];
+			
+	    
+
+
+	    
+	});
+
+	app.directive('dynamicField', function() {
+	  return {
+	    restrict: 'E',
+	    replace: true,
+	    scope: {
+	      fieldData: '='
+	    },
+	    link: function(scope, element, attrs) {
+	      // Function returns the correct template for each field.
+	      scope.getTemplateUrl = function() {
+
+	        var type = scope.fieldData.type || 'text';
+	        return 'templatesform/dynamic-field-'+type+'.html';
+
+	      }
+	    },
+
+	    template: '<div class="dynamic-field" ng-include="getTemplateUrl()"></div>'
+	  };
+	});
+
+	
+</script>
+
+
+</body>
+</html>

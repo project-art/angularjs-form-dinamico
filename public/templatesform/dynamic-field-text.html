@@ -1,0 +1,12 @@
+
+<ng-form name="userFieldForm">
+
+	<div class="form-group" ng-class="{ 'has-error' : userFieldForm.{{fieldData.name}}.$invalid && userFieldForm.{{fieldData.name}}.$touched }"> 
+		<label class="control-label"> {{fieldData.label}}  <span ng-if="fieldData.required" class="glyphicon glyphicon-asterisk" style="color:red;" aria-hidden="true"></span>  </label> 	
+		<input type="text" class="form-control" ng-model="fieldData.data" name="{{fieldData.name}}" placeholder="{{fieldData.label}}" ng-required="fieldData.required"> 		
+		<span class="help-block" ng-show="userFieldForm.{{fieldData.name}}.$invalid && userFieldForm.{{fieldData.name}}.$touched">
+			<span ng-show="userFieldForm.{{fieldData.name}}.$error.required">Digte o texto</span>
+		</span>
+	</div>
+
+</ng-form>

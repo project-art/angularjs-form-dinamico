@@ -1,0 +1,14 @@
+
+<ng-form name="userFieldForm">
+
+	<div class="form-group" ng-class="{ 'has-error' : userFieldForm.{{fieldData.name}}.$invalid && userFieldForm.{{fieldData.name}}.$touched }">
+		<label class="control-label"> {{fieldData.label}} <span ng-if="fieldData.required" class="glyphicon glyphicon-asterisk" style="color:red;" aria-hidden="true"></span>    </label>
+		<input type="email" class="form-control" name="{{fieldData.name}}"   ng-model="fieldData.data" placeholder="{{fieldData.label}}" ng-required="fieldData.required">
+		<span class="help-block" >
+			<span ng-show="userFieldForm.{{fieldData.name}}.$invalid && userFieldForm.{{fieldData.name}}.$touched">
+				Digte um e-mail valido
+			</span>
+		</span>
+	</div>
+
+</ng-form> 
